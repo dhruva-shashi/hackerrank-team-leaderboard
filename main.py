@@ -1,4 +1,4 @@
-from bottle import get, route, static_file, request, run, template
+from bottle import get, route, static_file, request, run, template, Bottle
 from threading import Thread
 from datetime import datetime
 import leaderboard as lb
@@ -250,11 +250,11 @@ def leaderboard():
     except Exception as e:
         return {'error': str(e)}
 
+app = Bottle()
 
 if os.environ.get('APP_LOCATION') == 'vercel':
     run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 else:
     run(host='localhost', port=8080, debug=True)
 
-app()
 
