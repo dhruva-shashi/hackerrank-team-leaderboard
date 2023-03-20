@@ -8,8 +8,6 @@ import time
 import math
 import os
 
-
-
 app = Bottle()
 
 # Header for the HTTP request to HackerRank API
@@ -254,4 +252,5 @@ def leaderboard():
     except Exception as e:
         return {'error': str(e)}
 
+app.run()
 
