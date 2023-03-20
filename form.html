@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>Form</title>
+        <link rel="stylesheet" href="/styles/form.css">
+    </head>
+
+    <body>
+        <div id="title">
+            Form
+        </div>
+
+        <div id="content">
+            <table>
+                <tr>
+                    <td>
+                        Contest Slug
+                    </td>
+                    <td>
+                        <input type="text" id="contest-slug" size="50">
+                    </td>
+                    <td>
+                        <a id="user-guide-link" href="/#user-guide">User Guide</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Problem Slugs
+                        <br>
+                        (Line separated)
+                    </td>
+                    <td>
+                        <textarea id="problem-slugs" rows="10" cols="49"></textarea>
+                    </td>
+                    <td rowspan="2" id="link-area-td">
+                        <table id="link-area">
+                            <tr>
+                                <td id="copy-link-td">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="link-text-td">
+                                    <textarea id="link-text" disabled>Link will appear here</textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Link for JSON file containing the mapping of teams and usernames of team members
+                    </td>
+                    <td>
+                        <input type="text" id="url-teams" size="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <input type="submit" id="generate-link" value="Generate Link" onclick="generate_link();"/>
+                        <input type="submit" id="reset-button" value="Reset" onclick="clear_all();">
+                        <div id="loading">Loading...</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            function generate_link() {
+                var contest_slug = document.getElementById('contest-slug');
+                var problem_slugs = document.getElementById('problem-slugs');
+                var teams_url = document.getElementById('url-teams');
+
+                var url = '/generate-link?contest_slug='+contest_slug.value;
+                url += '&problem_slugs='+problem_slugs.value.replace(/\n/g, '%0A');
+                url += '&teams_url='+teams_url.value;
+
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", url, false);
+                xmlHttp.send(null);
+
+                var data = JSON.parse(xmlHttp.responseText);
+
+                if (data['ok'])
+                    document.getElementById('link-text').value = data['leaderboard-link'];
+                else {
+                    document.getElementById('link-text').value = 'Link will appear here';
+                    alert(data['error']);
+                }
+            }
+
+            function clear_all() {
+                var contest_slug = document.getElementById('contest-slug');
+                var problem_slugs = document.getElementById('problem-slugs');
+                var teams_url = document.getElementById('url-teams');
+                var link_text = document.getElementById('link-text');
+
+                contest_slug.value = '';
+                problem_slugs.value = '';
+                teams_url.value = '';
+                link_text.value = 'Link will appear here';
+            }
+
+            function copyTextFunction() {
+                var copyText = document.getElementById('link-text');
+
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                navigator.clipboard.writeText(copyText.value);
+            }
+
+        </script>
+    </body>
+</html>
