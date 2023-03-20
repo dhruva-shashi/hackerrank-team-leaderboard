@@ -253,7 +253,7 @@ def leaderboard():
 app = Bottle()
 
 if os.environ.get('APP_LOCATION') == 'vercel':
-    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+	app.run()
 else:
     run(host='localhost', port=8080, debug=True)
 
