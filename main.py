@@ -8,6 +8,10 @@ import time
 import math
 import os
 
+
+
+app = Bottle()
+
 # Header for the HTTP request to HackerRank API
 header = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -28,17 +32,17 @@ header = {
 }
 
 
-@route('/')
+@app.route('/')
 def index():
     return template('index.html', root='.')
 
 
-@route('/form')
+@app.route('/form')
 def form():
     return template('form.html', root='.')
 
 
-@route('/styles/<filename>.css')
+@app.route('/styles/<filename>.css')
 def style(filename):
     return static_file(filename+'.css', root='.')
 
@@ -99,7 +103,7 @@ def timestamp_to_hour(ts):
     return res
 
 
-@get('/generate-link')
+@app.get('/generate-link')
 def generate_link():
     try:
         contest_slug = request.query['contest_slug']
@@ -148,7 +152,7 @@ def generate_link():
         return {'ok': False, 'error': str(e)}
 
 
-@route('/leaderboard')
+@app.route('/leaderboard')
 def leaderboard():
     try:
         contest_slug = request.query['contest_slug']
@@ -249,7 +253,5 @@ def leaderboard():
 
     except Exception as e:
         return {'error': str(e)}
-
-app = Bottle()
 
 
