@@ -1,4 +1,4 @@
-from bottle import get, route, static_file, request, run, template, defualt_app
+from bottle import get, route, static_file, request, run, template, default_app
 from threading import Thread
 from datetime import datetime
 import leaderboard as lb
