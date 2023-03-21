@@ -1,4 +1,4 @@
-from bottle import get, route, static_file, request, run, template, Bottle
+from bottle import get, route, static_file, request, run, template, defualt_app
 from threading import Thread
 from datetime import datetime
 import leaderboard as lb
@@ -8,7 +8,6 @@ import time
 import math
 import os
 
-app = Bottle()
 
 # Header for the HTTP request to HackerRank API
 header = {
@@ -30,17 +29,17 @@ header = {
 }
 
 
-@app.route('/')
+route('/')
 def index():
     return template('index.html', root='.')
 
 
-@app.route('/form')
+route('/form')
 def form():
     return template('form.html', root='.')
 
 
-@app.route('/styles/<filename>.css')
+route('/styles/<filename>.css')
 def style(filename):
     return static_file(filename+'.css', root='.')
 
@@ -101,7 +100,7 @@ def timestamp_to_hour(ts):
     return res
 
 
-@app.get('/generate-link')
+get('/generate-link')
 def generate_link():
     try:
         contest_slug = request.query['contest_slug']
@@ -150,7 +149,7 @@ def generate_link():
         return {'ok': False, 'error': str(e)}
 
 
-@app.route('/leaderboard')
+route('/leaderboard')
 def leaderboard():
     try:
         contest_slug = request.query['contest_slug']
@@ -252,5 +251,5 @@ def leaderboard():
     except Exception as e:
         return {'error': str(e)}
 
-app.run()
+app = default_app()
 
