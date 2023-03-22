@@ -61,6 +61,10 @@ input[type=submit] {
     margin-left: 50px;
 }
 
+#copy-link {
+	margin-bottom: 20px;
+}
+
 #copy-link-td {
     padding: 0px;
     text-align: right;
