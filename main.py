@@ -141,7 +141,7 @@ def generate_link():
         return_url += '&teams_url='+urllib.parse.quote(str(teams_url))
 
         if os.environ.get('APP_LOCATION') == 'vercel':
-            return {'ok': True, 'leaderboard-link': 'https://hackerrank-team-leaderboard.herokuapp.com/leaderboard'+return_url}
+            return {'ok': True, 'leaderboard-link': 'https://hackerrank-team-leaderboard.vercel.app/leaderboard'+return_url}
         else:
             return {'ok': True, 'leaderboard-link': 'http://localhost:8080/leaderboard'+return_url}
 
