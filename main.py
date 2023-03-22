@@ -252,5 +252,4 @@ def leaderboard():
         return {'error': str(e)}
 
 app = default_app()
-app.run()
 
