@@ -2,7 +2,7 @@
 
 ## Overview
 
-The website aims to provide an interface for organizers who are organizing contests on HackerRank. The best scores of individual participants among a team are taken into consideration among all the submissions and the scores are summed up. In case the scores of two participants from the same team match, the quickest submission is considered.
+The website provides an interface for organizers who are organizing contests on HackerRank. The best scores of individual participants among a team are taken into consideration among all the submissions and the scores are summed up. In case the scores of two participants from the same team match, the quickest submission is considered.
 
 ## Deployment
 
